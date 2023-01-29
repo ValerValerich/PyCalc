@@ -5,27 +5,30 @@ import operation
 
 
 def check_nums(a, b, a1=0, b1=0):
-    res = False
+    res = []
     for i in [a, a1, b, b1]:
+        temp = False
         if str(i).isdigit():
-            res = True
+            temp = True
 
         elif str(i)[0] == '-' and str(i)[1:].isdigit():
-            res = True
+            temp = True
 
         elif str(i)[0].isdigit() and str(i).replace('.', '').isdigit() and str(i).find('.') >= 1 and str(i).count('.') < 2:
-            res = True
+            temp = True
 
         elif str(i)[0] == '-' and str(i).replace('-', '').replace('.', '').isdigit() and str(i).find('.') >= 2 and str(i).count('-') <= 1 and str(i).count('.') <= 1:
-            res = True
+            temp = True
 
-    if not res:
+        if temp:
+            res.append(temp)
+    if res == [True, True, True, True]:
+        return True
+    else:
         mess = "Ошибка с форматом цифр! Попробуем еще разок?\n\n\n"
         logg.logging.error(mess)
         print(mess)
         time.sleep(1)
-
-    return res
 
 
 def chech_in(a, b, ch, op='', a1=0, b1=0):
