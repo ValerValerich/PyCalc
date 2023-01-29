@@ -5,24 +5,26 @@ import operation
 
 
 def check_nums(a, b, a1=0, b1=0):
-    res = True
+    res = False
     for i in [a, a1, b, b1]:
-        if not str(i).isdigit():
-            res = False
+        if str(i).isdigit():
+            res = True
 
-        elif str(i)[0] == '-' and not str(i)[1:].isdigit():
-            res = False
+        elif str(i)[0] == '-' and str(i)[1:].isdigit():
+            res = True
 
-        elif str(i)[0].isdigit() and str(i).find('.') < 1 and str(i).count('.') >= 2:
-            res = False
-        elif str(i)[0] == '-' and str(i).find('.') < 2 and str(i).count('-') > 1 and str(i).count('.') > 1:
-            res = False
+        elif str(i)[0].isdigit() and str(i).replace('.', '').isdigit() and str(i).find('.') >= 1 and str(i).count('.') < 2:
+            res = True
+
+        elif str(i)[0] == '-' and str(i).replace('-', '').replace('.', '').isdigit() and str(i).find('.') >= 2 and str(i).count('-') <= 1 and str(i).count('.') <= 1:
+            res = True
+
     if not res:
         mess = "Ошибка с форматом цифр! Попробуем еще разок?\n\n\n"
         logg.logging.error(mess)
         print(mess)
         time.sleep(1)
-                        
+
     return res
 
 
